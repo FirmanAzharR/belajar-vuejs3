@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch, provide } from "vue";
 import HelloWorld from "./components/HelloWorld.vue";
 import Counter from "./components/CounterNumber.vue";
 import TextInput from "./components/TextInput.vue";
@@ -8,6 +8,11 @@ import ToggleSwitch from "./components/ToggleSwitch.vue";
 import SlotComponent from "./components/SlotComponent.vue";
 import NamedSlotComponent from "./components/NamedSlotComponent.vue";
 import ChildSlot from "./components/ChildSlot.vue";
+import OnMountedComponent from "./components/OnMountedComponent.vue";
+import BeforeUpdateAndOnUpdate from "./components/BeforeUpdateAndOnUpdate.vue";
+import UnMountAndBeforeUnmount from "./components/unMountAndBeforeUnmount.vue";
+import ProvideInjectComponent from "./components/ProvideInjectComponent.vue";
+import ProvideInjectModifiedVAlue from "./components/ProvideInjectModifiedVAlue.vue";
 
 const message = ref("Hello World");
 const fruitList = ref(["banana", "apple", "mango"]);
@@ -41,6 +46,13 @@ function receiveData(data) {
   console.log("Data dari anak:", data);
 }
 
+const provideMessage = ref("Hello from Parent!");
+provide("sharedMessage", provideMessage);
+
+const countNumber = ref(0);
+
+provide("sharedCount", countNumber);
+
 watch(
   () => isActive.value,
   (newValue) => {
@@ -50,54 +62,6 @@ watch(
 </script>
 
 <template>
-  <div id="part1">
-    <div class="box">
-      <label>v-bind</label>
-      <br />
-      <!-- <img v-bind:src="imageUrl" alt="Gambar Vue" /> -->
-      <button v-bind:disabled="isDisabled">Klik Saya</button>
-    </div>
-    <div class="box">
-      <label>v-model</label>
-      <br />
-      <h4>{{ message }}</h4>
-      <input v-model="message" placeholder="Your Message" />
-    </div>
-    <div class="box">
-      <label>v-if-else</label>
-      <br />
-      <p v-if="status === 'online'">User Sedang Online</p>
-      <p v-else-if="status === 'away'">User Sedang Away</p>
-      <p v-else>User Sedang Offline</p>
-    </div>
-    <div class="box">
-      <label>v-show</label>
-      <p v-show="isVisible">Ini akan muncul jika `isVisible` bernilai true</p>
-      <button @click="isVisible = !isVisible">Toggle</button>
-    </div>
-
-    <div class="box">
-      <label>v-for</label>
-      <ul>
-        <li v-for="(item, index) in fruitList" :key="index">
-          {{ index + 1 }} - {{ item }}
-        </li>
-      </ul>
-    </div>
-
-    <div class="box">
-      <label>v-on</label><br />
-      <button v-on:click="increment">Tambah</button>
-      <p>Counter: {{ count }}</p>
-    </div>
-
-    <div class="box">
-      <label>keyup</label><br />
-      <input @keyup="handleKeyup" placeholder="Tekan tombol apa saja" />
-      <p>Terakhir ditekan: {{ keyPressed }}</p>
-    </div>
-  </div>
-
   <div id="part2">
     <div class="box">
       <label>component and props</label><br />
@@ -164,6 +128,77 @@ watch(
         <p>Nama: {{ user.name }}</p>
         <p>Usia: {{ user.age }}</p>
       </ChildSlot>
+    </div>
+    <div class="box">
+      <label for="">on mounted lifecycle</label>
+      <OnMountedComponent />
+    </div>
+    <div class="box">
+      <label for="">onBeforeUpdate dan onUpdate</label>
+      <BeforeUpdateAndOnUpdate />
+    </div>
+    <div class="box">
+      <label for="">onUnmounted dan onBeforeUnmount</label>
+      <UnMountAndBeforeUnmount />
+    </div>
+    <div class="box">
+      <label for="">Provide dan Inject</label>
+      <h1>Parent Component</h1>
+      <p>Message: {{ message }}</p>
+      <ProvideInjectComponent />
+    </div>
+    <div class="box">
+      <label for="">Provide dan Inject Modified Value</label>
+      <h1>Parent Component</h1>
+      <p>Count: {{ countNumber }}</p>
+      <ProvideInjectModifiedVAlue />
+    </div>
+  </div>
+  <div id="part1">
+    <div class="box">
+      <label>v-bind</label>
+      <br />
+      <!-- <img v-bind:src="imageUrl" alt="Gambar Vue" /> -->
+      <button v-bind:disabled="isDisabled">Klik Saya</button>
+    </div>
+    <div class="box">
+      <label>v-model</label>
+      <br />
+      <h4>{{ message }}</h4>
+      <input v-model="message" placeholder="Your Message" />
+    </div>
+    <div class="box">
+      <label>v-if-else</label>
+      <br />
+      <p v-if="status === 'online'">User Sedang Online</p>
+      <p v-else-if="status === 'away'">User Sedang Away</p>
+      <p v-else>User Sedang Offline</p>
+    </div>
+    <div class="box">
+      <label>v-show</label>
+      <p v-show="isVisible">Ini akan muncul jika `isVisible` bernilai true</p>
+      <button @click="isVisible = !isVisible">Toggle</button>
+    </div>
+
+    <div class="box">
+      <label>v-for</label>
+      <ul>
+        <li v-for="(item, index) in fruitList" :key="index">
+          {{ index + 1 }} - {{ item }}
+        </li>
+      </ul>
+    </div>
+
+    <div class="box">
+      <label>v-on</label><br />
+      <button v-on:click="increment">Tambah</button>
+      <p>Counter: {{ count }}</p>
+    </div>
+
+    <div class="box">
+      <label>keyup</label><br />
+      <input @keyup="handleKeyup" placeholder="Tekan tombol apa saja" />
+      <p>Terakhir ditekan: {{ keyPressed }}</p>
     </div>
   </div>
 </template>
