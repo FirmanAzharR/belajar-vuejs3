@@ -6,15 +6,13 @@
 </template>
 
 <script setup lang="js">
+import { useRouter } from 'vue-router'
 
-import { useRouter } from 'vue-router';
-
-const router = useRouter();
+const router = useRouter()
 
 const handleLogin = (id) => {
-    localStorage.setItem('auth', 'true')
-    localStorage.setItem('role', 'admin')
-    router.push(`/user/${id}`) 
+  localStorage.setItem('auth', 'true')
+  localStorage.setItem('role', 'admin')
+  router.push(`/user/${id}`)
 }
-
 </script>

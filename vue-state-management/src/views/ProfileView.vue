@@ -5,17 +5,17 @@
 </template>
 
 <script setup>
-import { onBeforeMount, ref, watch } from "vue";
-import { useRoute } from "vue-router";
+import { onBeforeMount, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 
-const route = useRoute();
-const userId = ref(0);
+const route = useRoute()
+const userId = ref(0)
 
 onBeforeMount(() => {
-  userId.value = route.params.id;
-});
+  userId.value = route.params.id
+})
 
 watch(route, () => {
-  userId.value = route.params.id;
-});
+  userId.value = route.params.id
+})
 </script>

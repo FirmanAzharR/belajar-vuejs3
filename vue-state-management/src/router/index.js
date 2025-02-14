@@ -22,13 +22,13 @@ const router = createRouter({
       path: '/user/:id',
       name: 'user',
       component: () => import('../views/UserProfile.vue'),
-      meta: { requiresAuth: true }
+      meta: { requiresAuth: true },
     },
     {
       path: '/profile-view/:id',
       name: 'profile-view',
       component: () => import('../views/ProfileView.vue'),
-      meta: { requiresAuth: true }
+      meta: { requiresAuth: true },
     },
     {
       path: '/admin',
@@ -42,12 +42,11 @@ const router = createRouter({
         } else {
           next(alert('anda bukan admin')) // Redirect ke home jika bukan admin
         }
-      }
+      },
     },
-    { path: '/:pathMatch(.*)*', component: NotFound },//handling 404 page not found
+    { path: '/:pathMatch(.*)*', component: NotFound }, //handling 404 page not found
   ],
 })
-
 
 // Global Before Each Guard (Cek Login)
 router.beforeEach((to, from, next) => {
