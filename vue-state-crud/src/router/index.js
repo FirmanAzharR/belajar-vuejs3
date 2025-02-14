@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import NotFound from '@/views/NotFound.vue'
+import UserList from '@/views/UserList.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -43,6 +44,12 @@ const router = createRouter({
           next(alert('anda bukan admin')) // Redirect ke home jika bukan admin
         }
       },
+    },
+    {
+      path: '/user-list',
+      name: 'user-list',
+      component: () => import('../views/UserList.vue'),
+      meta: { requiresAuth: true },
     },
     { path: '/:pathMatch(.*)*', component: NotFound }, //handling 404 page not found
   ],
