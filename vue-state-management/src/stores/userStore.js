@@ -26,5 +26,5 @@ export const useUserStore = defineStore('user', {
       this.count++
     },
   },
-  persist: true //persistedstate pinia otomatis menyimpan ke localStorage
+  persist: true, //persistedstate pinia otomatis menyimpan ke localStorage
 })

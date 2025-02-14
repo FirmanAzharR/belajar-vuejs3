@@ -23,35 +23,35 @@
 </template>
 
 <script setup>
-import { onBeforeMount, ref, watch } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { useUserStore } from "@/stores/userStore";
-import { useCounterStore } from "@/stores/counterStore";
+import { onBeforeMount, ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/userStore'
+import { useCounterStore } from '@/stores/counterStore'
 
-const userStore = useUserStore();
-const counterStore = useCounterStore();
+const userStore = useUserStore()
+const counterStore = useCounterStore()
 
 const changeName = () => {
-  userStore.updateName("Alice");
-};
+  userStore.updateName('Alice')
+}
 
-const route = useRoute();
-const router = useRouter();
-const userId = ref(0);
+const route = useRoute()
+const router = useRouter()
+const userId = ref(0)
 
 onBeforeMount(() => {
-  userId.value = route.params.id;
-});
+  userId.value = route.params.id
+})
 
 watch(route, () => {
-  userId.value = route.params.id;
-});
+  userId.value = route.params.id
+})
 
 const goToUser = (id) => {
-  router.push(`/profile-view/${id}`); // Berpindah ke halaman dengan ID berbeda
-};
+  router.push(`/profile-view/${id}`) // Berpindah ke halaman dengan ID berbeda
+}
 
 const goToAdminPage = () => {
-  router.push(`/admin`); // Berpindah ke halaman dengan ID berbeda
-};
+  router.push(`/admin`) // Berpindah ke halaman dengan ID berbeda
+}
 </script>
